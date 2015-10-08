@@ -10,8 +10,7 @@ class SmallestDifference(object):
         
         # Find smallest difference among all possible consecutive sequences of length k for sorted list
         for i in range(len(num_list_sorted)-k+1):
-          sequence = num_list_sorted[i:i+k]
-          cur_dif = max(sequence) - min(sequence)
+          cur_dif = num_list_sorted[i+k-1] - num_list_sorted[i]
           if cur_dif < smallest_dif:
             smallest_dif = cur_dif
         
