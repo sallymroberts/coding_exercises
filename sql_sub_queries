@@ -1,0 +1,57 @@
+__ Practice SQL sub-queries:
+-- These were executed in an SQL session
+-- and copied into this file.
+-- Data obtained from Scene Francisco project
+-- database and Hackbright auto database
+
+-- Sub-query with self-join:
+-- Select movie title, release year for
+-- movies with the same release year as
+-- Ant-Man, sequenced by movie title
+
+SELECT m.movie_title, m.release_year
+FROM Movies AS m
+WHERE m.release_year = (
+SELECT m2.release_year
+FROM Movies AS m2
+WHERE m2.movie_title = 'Ant-Man')
+ORDER BY m.movie_title;
+
+
+-- Sub-query with 2 tables using key word IN:
+-- Select movie title, release year and location 
+-- description for movies having filming 
+-- locations that are filming locations for 
+-- movies containing the word 'Alcatraz'
+-- sequenced by movie title, location description
+
+SELECT m1.movie_title, m1.release_year, l1.location_description
+FROM Movies as m1 
+JOIN Movie_locations as l1 
+ON m1.movie_id = l1.movie_id 
+WHERE l1.location_description IN
+	(SELECT l2.location_description 
+	FROM Movie_locations AS l2
+	JOIN Movies AS m2 ON l2.movie_id = m2.movie_id
+	WHERE m2.movie_title LIKE '%Alcatraz%')
+ORDER BY m1.movie_title, l1.location_description;
+
+
+-- Correlated sub-query with 2 tables:
+-- Select brand, model, model year from Models
+-- and Brand tables where brand is not 
+-- discontinued and model year later than 1960
+
+SELECT brand_name, models.name, models.year as model_year
+FROM Models 
+JOIN Brands ON brand_name = brands.name
+WHERE brand_name IN (SELECT brand_name WHERE discontinued IS NULL AND models.year > 1960)
+ORDER BY brand_name, models.name;
+
+
+
+
+
+
+
+
