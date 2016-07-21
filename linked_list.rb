@@ -2,7 +2,8 @@
 #   https://www.sitepoint.com/ruby-interview-questions-linked-lists-and-hash-tables/
 
 class Node
-  attr_accessor :data, :next
+  attr_accessor :next
+  attr_reader :data
 
   def initialize(data)
     @data = data
@@ -11,7 +12,7 @@ class Node
 end
 
 class LinkedList
-  attr_accessor :head, :tail
+  attr_reader :head, :tail
 
   def initialize
     @head = nil
@@ -34,6 +35,7 @@ class LinkedList
     end
   end
 
+  # Build linked list from array
   def self.build_ll(arr)
     ll = LinkedList.new
     arr.each do |elem|
