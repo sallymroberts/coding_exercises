@@ -25,31 +25,29 @@ class LinkedList
     @tail.next = new_node if @tail
     @tail = new_node
   end
-  
-  def print_list(head)
-    curr_node = head
+
+  # Print linked list beginning with current node
+  def self.print_list(curr_node)
     while curr_node
       puts curr_node.data
       curr_node = curr_node.next
     end
   end
 
-  # def build_ll(arr)
-  #   ll = LinkedList.new
-  #   arr.each do |elem|
-  #     curr_node = Node.new(elem)
-  #     @head ||= curr_node
-  #     @tail ||= curr_node
-  #     @tail.next = curr_node unless
-  #   end
-  # end
+  def self.build_ll(arr)
+    ll = LinkedList.new
+    arr.each do |elem|
+      ll.append_node(elem)
+    end
+    ll
+  end
 end
 
 # Create and print a linked list
 
-ll = LinkedList.new
-ll.append_node(1)
-ll.print_list(ll.head)
+arr = [10, 6, 4, 11, 3]
+ll = LinkedList.build_ll(arr)
+LinkedList.print_list(ll.head)
 
 
 
