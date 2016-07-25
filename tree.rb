@@ -28,7 +28,24 @@ class Node
     while to_visit != []
       curr_node = to_visit.pop
       puts curr_node.data
-      to_visit.push(*curr_node.children)
+      to_visit += curr_node.children
+    end
+  end
+
+  # Check if node exists with specified data
+  # @param [Node] curr_node node to begin search
+  # @param [String] data to check for
+  def self.node_exists?(curr_node, data)
+    to_visit = [curr_node]
+
+    while to_visit != []
+      curr_node = to_visit.pop
+
+      if curr_node.data == data
+        return true
+      else
+        to_visit += curr_node.children
+      end
     end
   end
 end
@@ -57,3 +74,5 @@ Node.print_nodes(sam)
 puts
 sam_family = Tree.new(sam)
 Node.print_nodes(sam_family.root)
+
+puts "Ralph exists in Sam's family?: #{Node.node_exists?(sam, "Ralph")}"
