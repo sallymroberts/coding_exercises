@@ -25,24 +25,19 @@ def strip_string(phrase:)
   phrase
 end
 
+def print_palindromes(filename)
+  f = File.open(filename, 'r') do |f|
+    f.each_line do |line|
+      line = line.rstrip
+      save_line = String.new(line)
+      if is_pal?(phrase: line, strip: true)
+        puts
+        puts "#{save_line}"
+      end
+    end
+  end
+end
+
 # Tests of palindrome function
 
-phrase = "Madam, I'm Adam"
-puts "phrase: #{phrase}"
-puts "is pal?: #{is_pal?(phrase: phrase, strip: true)}"
-puts
-
-phrase = "Walk, don't run"
-puts "phrase: #{phrase}"
-puts "is pal?: #{is_pal?(phrase: phrase, strip: true)}"
-puts
-
-phrase = ""
-puts "phrase: #{phrase}"
-puts "is pal?: #{is_pal?(phrase: phrase, strip: true)}"
-puts
-
-phrase = "Live not on evil"
-puts "phrase: #{phrase}"
-puts "is pal?: #{is_pal?(phrase: phrase, strip: true)}"
-puts
+print_palindromes("phrases.txt")

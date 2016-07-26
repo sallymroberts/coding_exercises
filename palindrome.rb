@@ -29,20 +29,18 @@ def is_palindrome?(phrase:)
   is_palindrome?(phrase: phrase[1..-2])
 end
 
-# Tests of palindrome function
-
-phrase = "Madam, I'm Adam"
-pal = is_pal?(phrase: phrase)
-puts "phrase, pal: #{ phrase }, #{ pal }"
-
-phrase = ""
-pal = is_pal?(phrase: phrase)
-puts "phrase, pal: #{ phrase }, #{ pal }"
-
-phrase = "Walk, don't run"
-pal = is_pal?(phrase: phrase)
-puts "phrase, pal: #{ phrase }, #{ pal }"
-
-phrase = "Live not on evil"
-pal = is_pal?(phrase: phrase)
-puts "phrase, pal: #{ phrase }, #{ pal }"
+# phrase = "Madam, I'm Adam"
+# pal = is_pal?(phrase: phrase)
+# puts "phrase, pal: #{ phrase }, #{ pal }"
+#
+# phrase = ""
+# pal = is_pal?(phrase: phrase)
+# puts "phrase, pal: #{ phrase }, #{ pal }"
+#
+# phrase = "Walk, don't run"
+# pal = is_pal?(phrase: phrase)
+# puts "phrase, pal: #{ phrase }, #{ pal }"
+#
+# phrase = "Live not on evil"
+# pal = is_pal?(phrase: phrase)
+# puts "phrase, pal: #{ phrase }, #{ pal }"
