@@ -3,8 +3,7 @@ def print_mult():
     '''
 
     # Formatted string with layout for each row
-    layout = "{0:>4}{1:>6}{2:>4}{3:>4}{4:>4}{5:>4}{6:>4}{7:>4}{8:>4}{9:>4}{10:>4}{11:>4}{12:>4}"
-    
+    layout = "{:>4}{:>6}{:>4}{:>4}{:>4}{:>4}{:>4}{:>4}{:>4}{:>4}{:>4}{:>4}{:>4}"
     # Print column heading rows
     print(layout.format("",1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
     under = "   :" + 50 * "-"
