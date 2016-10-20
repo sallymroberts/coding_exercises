@@ -1,3 +1,4 @@
 My first file written from Python
 ---------------------------------
 Hello, world!
+Hello, a brave new world
