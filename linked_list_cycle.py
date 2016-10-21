@@ -4,7 +4,7 @@ class LinkedListNode:
         self.value = value
         self.next  = next
 
-def is_cycle_ll(first_node):
+def contains_cycle(first_node):
 	"""
 	Determine if a linked list has a cycle.
 
@@ -35,7 +35,7 @@ node_3 = LinkedListNode("3", node_4)
 node_2 = LinkedListNode("2", node_3)
 node_1 = LinkedListNode("1", node_2)
 
-is_cycle = is_cycle_ll(node_1)
+is_cycle = contains_cycle(node_1)
 print("is_cycle (should be False):", is_cycle)
 
 # Construct and test invalid linked list with a cycle
@@ -43,9 +43,9 @@ node_d = LinkedListNode("D", None)
 node_c = LinkedListNode("C", node_d)
 node_b = LinkedListNode("B", node_c)
 node_a = LinkedListNode("A", node_b)
-node_d.next = node_a
+node_d.next = node_c
 
-is_cycle = is_cycle_ll(node_a)
+is_cycle = contains_cycle(node_a)
 print("is_cycle (should be True):", is_cycle)
 
 # Construct and test invalid linked list with one node 
@@ -53,5 +53,5 @@ print("is_cycle (should be True):", is_cycle)
 node_e = LinkedListNode("E", None)
 node_e.next = node_e
 
-is_cycle = is_cycle_ll(node_e)
+is_cycle = contains_cycle(node_e)
 print("is_cycle (should be True):", is_cycle)
