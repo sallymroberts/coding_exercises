@@ -85,27 +85,45 @@ def highest_product(list_of_ints):
 			else:
 				possible_high_prods.append(lowest_pos[0] * lowest_pos[1] * lowest_neg[-1])
 	
+	print(possible_high_prods)
 	return max(possible_high_prods)
 
-# Tests
-# Simple list of positive integers, includes zero, duplicate positive & negative integers
-# 2 possible positive candidates (-10 * -10 * 15 = 1500), (7 * 8 * 15 = 840)
+############ Tests
+# Positive high product from (neg * neg * pos), zero in input list
+# 2 possible positive candidates (-10 * -10 * 15 = 1500), (8 * 8 * 15 = 960) 
 ints = [4, 7, 2, 8, -10, 8, 15, 0, -2, -10, -1, -3, -5] 
 print("Expect 1500: Got", highest_product(ints))
 
-# Positive product from 2 negative integers, 1 positive integer
-# Only 1 possible positive candidate 
+# Positive high product from (pos * pos * pos), zero in input list
+# 2 possible positive candidates (-10 * -10 * 15 = 1500), (8 * 15 * 15 = 1800) 
+ints = [4, 7, 2, 8, -10, 15, 15, 0, -2, -10, -1, -3, -5] 
+print("Expect 1800: Got", highest_product(ints))
+
+# Positive high product from (neg * neg * pos), zero in input list
+# 1 possible positive candidate (4 * -2 * -5)
 ints = [-2, -5, 0, 4]
 print("Expect 40: Got", highest_product(ints))
 
+# Positive high product from (neg * neg * pos), zero not in input list
+# 1 possible positive candidate (4 * -2 * -5)
 ints = [-2, -5, 4, 3]
 print("Expect 40: Got", highest_product(ints))
 
+# Positive high product from (pos * pos * pos), zero not in input list
+# 1 possible positive candidate (3 * 4 * 10)
+ints = [-6, 4, 3, 10]
+print("Expect 120: Got", highest_product(ints))
+
+# No positive products, mixed positive and negative integers, zero in list
 ints = [-2, 0, 4, 3]
 print("Expect zero: Got", highest_product(ints))
 
+# Input list all negative numbers
+# 1 possible candidate (-2 * -3 * -6)
 ints = [-2, -5, -3, -6]
 print("Expect -30: Got", highest_product(ints))
 
+# No positive products, mixed positive and negative integers, zero not in list
+# 1 possible candidate (-2 * 1 * 3)
 ints = [-2, 1, 3]
 print("Expect -6: Got", highest_product(ints))
