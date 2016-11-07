@@ -89,9 +89,21 @@ rect_2 = {
 	'height': 10
 }
 
+# Contained within rectangle 1
+rect_3 = {
+	'left_x': 2,
+	'bottom_y': 6,
+	'width': 3,
+	'height': 1
+}
+
 print("Overlapping", "\n", 
 	"Expect: {'left_x': 8, 'width': 7}", "\n", 
 	"Actual:", get_intersecting_rectangle(rect_1, rect_2))
+
+print("Contained within", "\n", 
+	"Expect: {'left_x': 2,'bottom_y': 6,'width': 3,'height': 1}", "\n", 
+	"Actual:", get_intersecting_rectangle(rect_1, rect_3))
 
 rect_2['left_x'] = 1
 print()
@@ -110,4 +122,5 @@ print()
 print("No overlap, min rect max coord < max rect min coord", "\n", 
 	"Expect: None", "\n",
 	"Actual:", get_intersecting_rectangle(rect_1, rect_2))
+
 
