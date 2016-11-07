@@ -64,9 +64,6 @@ def get_intersect_rect_axis(rect_1_min_coord,
 		max_rect_max_coord = rect_1_max_coord
 
 	# Check if min and max rectangles overlap
-	print("min_rect_max_coord:", min_rect_max_coord)
-	print("max_rect_min_coord:", max_rect_min_coord)
-	
 	if max_rect_min_coord < min_rect_max_coord:
 		intersect_rect_min_coord = max_rect_min_coord
 		intersect_rect_length = max_rect_max_coord - max_rect_min_coord
@@ -75,6 +72,7 @@ def get_intersect_rect_axis(rect_1_min_coord,
 	else:
 		return None
 
+ # Define rectangles for tests
 rect_1 = {
 	'left_x': 1,
 	'bottom_y': 5,
@@ -82,6 +80,8 @@ rect_1 = {
 	'height': 4
 }
 
+# Rectangle 2, overlaps rectangle 1
+# Note that attributes of rect_2 are modified for some tests
 rect_2 = {
 	'left_x': 8,
 	'bottom_y': 6,
@@ -89,7 +89,7 @@ rect_2 = {
 	'height': 10
 }
 
-# Contained within rectangle 1
+# Rectangle 3, contained within rectangle 1
 rect_3 = {
 	'left_x': 2,
 	'bottom_y': 6,
@@ -97,18 +97,21 @@ rect_3 = {
 	'height': 1
 }
 
+# Overlapping rectangles
 print("Overlapping", "\n", 
-	"Expect: {'left_x': 8, 'width': 7}", "\n", 
+	"Expect: {'left_x': 8, 'bottom_y': 6, 'width': 7, 'height': 3}", "\n", 
 	"Actual:", get_intersecting_rectangle(rect_1, rect_2))
 
+# Rectangle 3 contained within rectangle 1
 print("Contained within", "\n", 
 	"Expect: {'left_x': 2,'bottom_y': 6,'width': 3,'height': 1}", "\n", 
 	"Actual:", get_intersecting_rectangle(rect_1, rect_3))
 
+# Rectangles overlap, with same minimum x-coordinate
 rect_2['left_x'] = 1
 print()
-print("Same minimum coordinate", "\n", 
-	"Expect: {'left_x': 1, 'width': 7}", "\n", 
+print("Same minimum x coordinate", "\n", 
+	"Expect: {'left_x': 1,'bottom_y': 6,'width': 7,'height': 10}", "\n", 
 	"Actual:", get_intersecting_rectangle(rect_1, rect_2))
 
 rect_2['left_x'] = 11
