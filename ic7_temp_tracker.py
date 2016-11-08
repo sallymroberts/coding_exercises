@@ -20,7 +20,7 @@ class TempTracker:
 
 		else:
 			self.max = max(self.max, temp)
-			self.min = min(self.max, temp)
+			self.min = min(self.min, temp)
 			self.temps[temp] = self.temps.get(temp, 0) + 1
 			# self.mode = max(self.temps.values())
 
@@ -30,9 +30,8 @@ class TempTracker:
 		print(self.mean)
 
 	def get_max(self):
-		print(self.max)
 		max_temp = self.max
-		return max_temp
+		return (self.max)
 
 	def get_min(self):
 		return self.min
@@ -48,4 +47,8 @@ my_temp_tracker.insert(10)
 my_temp_tracker.insert(6)
 my_temp_tracker.insert(10)
 
-print("Max: ", my_temp_tracker.get_max)
+print("Max: ", my_temp_tracker.get_max())
+print("Min: ", my_temp_tracker.get_min())
+print("Mean: ", my_temp_tracker.get_mean())
+# print("Mode: ", my_temp_tracker.get_mode())
+
