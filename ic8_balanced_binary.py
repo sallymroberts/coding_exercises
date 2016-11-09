@@ -1,4 +1,7 @@
 class BinaryTreeNode:
+    """ Note: Class definition copied from instructions for exercise 8,
+        interviewcake.com
+    """
 
     def __init__(self, value):
         self.value = value
@@ -31,13 +34,14 @@ def is_super_balanced(binary_tree_node):
     while to_visit:
         cur_node, cur_depth = to_visit.pop(0)
         # Process leaf node
+        # Return false when leaves more than 1 level apart found,
+        # for efficiency - don't need to traverse entire tree
         if not cur_node.left and not cur_node.right:
             if min_leaf_depth == None or cur_depth < min_leaf_depth:
                 min_leaf_depth = cur_depth
             if max_leaf_depth == None or cur_depth > max_leaf_depth:
                 max_leaf_depth = cur_depth
             if max_leaf_depth - min_leaf_depth > 1:
-                # print("cur_node.value:", cur_node.value)
                 return False
         else:
             if cur_node.left:
@@ -48,50 +52,50 @@ def is_super_balanced(binary_tree_node):
     return True
 
 # Test cases
-node_a = BinaryTreeNode("A")
+node_j = BinaryTreeNode("J")
 
 # Binary Tree Node has no leaves
 print("Node with no leaves is super balanced", "\n", "Expect: True", 
-    "\n", "Actual:", is_super_balanced(node_a))
+    "\n", "Actual:", is_super_balanced(node_j))
 print()
 
-node_c = node_a.insert_left("C")
+node_i = node_j.insert_left("I")
 
 # Binary tree has only 1 leaf (left)
 print("Node with only 1 descendant (left) is super balanced", "\n", "Expect: True", 
-    "\n", "Actual:", is_super_balanced(node_a))
+    "\n", "Actual:", is_super_balanced(node_j))
 print()
 
 # Node has 2 leaves, both at same level
-node_b = node_a.insert_right("B") 
+node_k = node_j.insert_right("K") 
 print("Node with 2 descendants (left and right) is super balanced", "\n", "Expect: True", 
-    "\n", "Actual:", is_super_balanced(node_a))
+    "\n", "Actual:", is_super_balanced(node_j))
 print()
 
 # Node has 2 leaves, 1 level apart
-node_d = node_b.insert_right("D") 
+node_l = node_k.insert_right("L") 
 print("Node with 2 leaves, 1 level apart, is super balanced", "\n", "Expect: True", 
-    "\n", "Actual:", is_super_balanced(node_a))
+    "\n", "Actual:", is_super_balanced(node_j))
 print()
 
 # Node has 2 leaves, 2 levels apart
-node_d = node_d.insert_right("E") 
+node_m = node_l.insert_right("M") 
 print("Node with 2 leaves, 2 levels apart, is not super balanced", "\n", "Expect: False", 
-    "\n", "Actual:", is_super_balanced(node_a))
+    "\n", "Actual:", is_super_balanced(node_j))
 print()
 
 # Node has many leaves, some 2+ levels 
-node_1 = BinaryTreeNode("1")
-node_2 = node_1.insert_right("2")
-node_3 = node_1.insert_left("3")
-node_4 = node_3.insert_left("4")
-node_5 = node_3.insert_right("5")
-node_6 = node_2.insert_left("6")
-node_7 = node_6.insert_left("7")
-node_8 = node_7.insert_left("8")
-node_10 = node_7.insert_right("10")
-node_9 = node_8.insert_left("9")
+node_20 = BinaryTreeNode("20")
+node_25 = node_20.insert_right("25")
+node_18 = node_20.insert_left("18")
+node_21 = node_25.insert_left("21")
+node_26 = node_25.insert_right("26")
+node_15 = node_18.insert_left("15")
+node_12 = node_15.insert_left("12")
+node_11 = node_12.insert_left("11")
+node_13 = node_12.insert_right("13")
+node_10 = node_11.insert_left("10")
 
 print("Node with 3 leaves, 2 levels apart, is not super balanced", "\n", "Expect: False", 
-    "\n", "Actual:", is_super_balanced(node_1))
+    "\n", "Actual:", is_super_balanced(node_20))
 print()
