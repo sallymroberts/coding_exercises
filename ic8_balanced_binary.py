@@ -32,7 +32,9 @@ def is_super_balanced(binary_tree_node):
     max_leaf_depth = None
 
     while to_visit:
-        cur_node, cur_depth = to_visit.pop(0)
+        # Do depth first traversal, using stack, because it finds
+        # leaves more quickly, allowing quicker exit in some cases
+        cur_node, cur_depth = to_visit.pop()
         # Process leaf node
         # Return false when leaves more than 1 level apart found,
         # for efficiency - don't need to traverse entire tree
