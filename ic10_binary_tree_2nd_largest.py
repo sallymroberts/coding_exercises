@@ -34,17 +34,19 @@ def get_second_largest_value(binary_tree_node):
         return binary_tree_node.left.value
 
     # Initialize values from root node
-    to_visit = [binary_tree_node.right]
-    cur_next_to_max = binary_tree_node.value
+    cur_node = binary_tree_node.right
+    prev_node_value = binary_tree_node.value
 
     # Traverse root's right branch, right nodes only, to end
     while True:
-        cur_node = to_visit.pop()
-        if not cur_node.right:
-            return cur_next_to_max
+        if cur_node.right:
+            prev_node_value = cur_node.value
+            cur_node = cur_node.right
         else:
-            cur_next_to_max = cur_node.value
-            to_visit.append(cur_node.right)
+            if cur_node.left:
+                return cur_node.left.value
+            else:
+                return prev_node_value
 
 # Test cases
 node_10 = BinaryTreeNode("10")
@@ -78,7 +80,8 @@ print("Root with only 1 descendant on right branch: Returns root value",
     "\n", "Actual:", get_second_largest_value(node_32))
 print()
 
-# Root with several left and right descendants returns next to last right child value 
+# Root with left and right branches, last right descendant has no left child, 
+# Returns next to last right node value 
 node_20 = BinaryTreeNode("20")
 node_25 = node_20.insert_right("25")
 node_18 = node_20.insert_left("18")
@@ -89,8 +92,19 @@ node_12 = node_15.insert_left("12")
 node_11 = node_12.insert_left("11")
 node_13 = node_12.insert_right("13")
 node_10 = node_11.insert_left("10")
-print("Root with left and right branches:",
-    "\n", "Returns value of next to last right descendant on right branch", 
+print("Root with left and right branches, last right descendant has no left child:",
+    "\n", "Returns next to last right node value", 
     "\n", "Expect: 25", 
+    "\n", "Actual:", get_second_largest_value(node_20))
+print()
+
+# Root with left and right branches, last right descendant has left child, 
+# Returns last right node's left child value 
+node_27 = node_28.insert_left("27")
+
+
+print("Root with left and right branches, last right descendant has left child:",
+    "\n", "Returns last right node's left child value", 
+    "\n", "Expect: 27", 
     "\n", "Actual:", get_second_largest_value(node_20))
 print()
