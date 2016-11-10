@@ -2,7 +2,6 @@ class BinaryTreeNode:
     """ Note: Class definition copied from instructions for exercise 10,
         interviewcake.com
     """
-
     def __init__(self, value):
         self.value = value
         self.left  = None
@@ -16,37 +15,54 @@ class BinaryTreeNode:
         self.right = BinaryTreeNode(value)
         return self.right
 
+def get_largest_value(binary_tree_node):
+    """ Get largest value in binary tree
+        Arguments: 
+        binary_tree_node [BinaryTreeNode] 
+        
+        Returns: Value of largest element
+    """
+    cur_node = binary_tree_node
+
+    # Traverse root's right branch, right nodes only, to end
+    while True:
+        if cur_node.right:
+            cur_node = cur_node.right
+        else:
+            return cur_node.value
+
 def get_second_largest_value(binary_tree_node):
     """ Get value of second largest element in binary tree
         
         Arguments: 
         binary_tree_node [BinaryTreeNode] 
         
-        Returns: [Integer] Value of second largest element
+        Returns: Value of second largest element
+                 None, if no second largest element
     """
-    # Special cases
-    # Root has no children: return None
+    # Root has no descendants
     if not binary_tree_node.right and not binary_tree_node.left:
         return None
+    # Root has left child and no right child: get root's left branch largest value
+    elif not binary_tree_node.right:
+        return get_largest_value(binary_tree_node.left)
+    # Root has right child
+    else:
+        # Initialize values from binary_tree_node
+        cur_node = binary_tree_node
+        prev_node_value = None
 
-    # Root has no right child & has a left child: return root's left child value
-    if not binary_tree_node.right and binary_tree_node.left:
-        return binary_tree_node.left.value
-
-    # Initialize values from root node
-    cur_node = binary_tree_node.right
-    prev_node_value = binary_tree_node.value
-
-    # Traverse root's right branch, right nodes only, to end
-    while True:
-        if cur_node.right:
-            prev_node_value = cur_node.value
-            cur_node = cur_node.right
-        else:
-            if cur_node.left:
-                return cur_node.left.value
+        # Traverse root's right branch, right nodes only, to end
+        while True:
+            if cur_node.right:
+                prev_node_value = cur_node.value
+                cur_node = cur_node.right
             else:
-                return prev_node_value
+                # Found last right node (largest value), return next largest value
+                if cur_node.left:
+                    return get_largest_value(cur_node.left)
+                else:
+                    return prev_node_value
 
 # Test cases
 node_10 = BinaryTreeNode("10")
@@ -62,12 +78,27 @@ print("Root has no right child, and left branch has 1 descendant: returns left c
     "\n", "Actual:", get_second_largest_value(node_10))
 print()
 
-# Root has no right child and left branch has multiple descendants
+# Root has no right child and 
+# root's left child has left child and no right child
 node_5 = node_7.insert_left("5")
 node_3 = node_5.insert_left("3")
-print("Root has no right child, left branch has multiple descendants: ", 
+print("Root has no right child,", 
+    "and root's left child has left child and no right child: ", 
     "\n", "Returns Root's left child value", 
     "\n", "Expect: 7", 
+    "\n", "Actual:", get_second_largest_value(node_10))
+print()
+
+# Root has no right child
+# Root's left child has left and multiple right descendants
+# Returns root's left child's last right descendant
+node_8 = node_7.insert_right("8")
+node_9 = node_8.insert_right("9")
+
+print("Root has no right child",
+    "\n", "Root's left child has left and multiple right descendants",
+    "\n", "Returns root's left child's last right descendant",  
+    "\n", "Expect: 9", 
     "\n", "Actual:", get_second_largest_value(node_10))
 print()
 
@@ -100,11 +131,12 @@ print()
 
 # Root with left and right branches, last right descendant has left child, 
 # Returns last right node's left child value 
-node_27 = node_28.insert_left("27")
+node_26 = node_28.insert_left("26")
+node_27 = node_26.insert_right("27")
 
 
 print("Root with left and right branches, last right descendant has left child:",
-    "\n", "Returns last right node's left child value", 
+    "\n", "Returns last right descendant's left child's last right descendant", 
     "\n", "Expect: 27", 
     "\n", "Actual:", get_second_largest_value(node_20))
 print()
