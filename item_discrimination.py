@@ -9,8 +9,8 @@ def read_answers(answer_file):
 
         Returns: [Tuple] containing 2 elements:
             user_scores [List] contains tuples of score, user id
-            answers [Dict] 
-                key: [String] question
+            answers     [Dict] 
+                key:   [String] question
                 value: [Dict] Users grouped by correct/incorrect answers:
                     2 keys: [String] "correct users" and "incorrect users"
                     values: [List] id's of users 
@@ -24,20 +24,18 @@ def read_answers(answer_file):
     # Initialize values
     sv_user_id = None
     user_scores = []
-    correct_count = 0
-    ans_count = 0
     answers = {}
 
-    # Accumulate data needed to calculate item discrimination
+    # Accumulate user score and answer data needed to calculate item discrimination
     for answer in answer_list:
         # Process change of user id
         if answer['user_id'] != sv_user_id:
-            # process previous user
+            # Calculate and store score of previous user
             if sv_user_id is not None:
                 score = set_user_score(sv_user_id, correct_count, ans_count)
                 user_scores.append((score, sv_user_id))
         
-            # setup new user
+            # Setup new user
             sv_user_id = answer['user_id']
             ans_count = 0
             correct_count = 0
@@ -57,28 +55,27 @@ def read_answers(answer_file):
         else:
             answers[question]["incorrect users"].append(sv_user_id)
         
-    # set score for last user
+    # Calculate and store score of last user
     score = set_user_score(sv_user_id, correct_count, ans_count)
     user_scores.append((score, sv_user_id))
  
     return (user_scores, answers)
 
 def set_user_score(user_id, correct_count, ans_count):
-    """ Set user score for all questions answered
+    """ Set user score for all questions answered (ignore unanswered questions)
         Arguments:
-        user_id [Integer]
+        user_id       [Integer]
         correct_count [Integer] count of user's correct answers
-        ans_count [Integer] count of all of user's answers
+        ans_count     [Integer] count of all of user's answers
 
         Returns:
-        Score [Float] User's percent of correct answers
-    """
-    if user_id is not None:
-        if correct_count == 0:
-            score = 0
-        else:
-            score = 100 * (correct_count / ans_count)
-        return score
+        score [Float] User's percent of correct answers
+    """  
+    if correct_count == 0:
+        score = 0
+    else:
+        score = 100 * (correct_count / ans_count)
+    return score
 
 def get_cohorts(user_scores):
     """ Get top and bottom cohorts from user scores
@@ -91,8 +88,8 @@ def get_cohorts(user_scores):
               Handle identical scores across cohort boundaries 
               by including id in sort to provide predictable results.
         Returns:
-        [Tuple] has 2 elements:
-                top_cohort [Set] user id's with scores in top third
+        [Tuple] with 2 elements:
+                top_cohort    [Set] user id's with scores in top third
                 bottom_cohort [Set] user id's with scores in bottom third
     """
     user_count = len(user_scores)
@@ -115,7 +112,7 @@ def get_fraction_correct(correct_user_ids, incorrect_user_ids, cohort):
         Arguments:
         correct_user_ids   [List] id's of users getting correct answer
         incorrect_user_ids [List] id's of users getting incorrect answer
-        cohort [Set] id's of users in a cohort
+        cohort             [Set] id's of users in a cohort
 
         Returns:
         cohort_fraction_correct [Float] Fraction of correct answers for cohort
@@ -158,10 +155,10 @@ def main(answer_file):
 
     answers_sorted = sorted(answers.keys())
     
+    # Calculate and print item discrimination for each question
     print("Question                       Item Discrimination")
     print("*" * 50)
 
-    # For each question, calculate and print item discrimination
     for question in answers_sorted:
         correct_user_ids = answers[question]["correct users"]
         incorrect_user_ids = answers[question]["incorrect users"]
