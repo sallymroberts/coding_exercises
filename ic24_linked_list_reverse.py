@@ -23,6 +23,9 @@ def reverse_linked_list(head_node):
         Returns:
         [LinkedListNode] new head of reversed list
     """
+    if head_node == None:
+        return None
+
     if head_node.next == None:
         return head_node
 
@@ -42,11 +45,19 @@ def reverse_linked_list(head_node):
 # Tests
 # print("*" * 80)
 
+# Empty linked list
+print("Empty linked list")
+head_node = None
+new_head = reverse_linked_list(head_node)
+print("Expect new_head: None")
+print("Actual new_head:", new_head)
+
 # Single node linked list
 node_1 = LinkedListNode("1")
 node_1.next = None
 head_node = node_1
 
+print()
 print("Single element linked list")
 new_head = reverse_linked_list(head_node)
 print("Expect new_head.value: 1")
