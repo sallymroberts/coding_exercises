@@ -42,9 +42,6 @@ def reverse_linked_list(head_node):
             prev_node = cur_node
             cur_node = next_node
 
-# Tests
-# print("*" * 80)
-
 # Empty linked list
 print("Empty linked list")
 head_node = None
@@ -88,11 +85,3 @@ print("Actual new_head.value:", new_head.value)
 print("Expect: Linked List Nodes values: E D C B A")
 print("Actual:", end = " ")
 new_head.print_ll()
-
-# 
-
-# print("new_head.next.value:", new_head.next.value)
-# print("5 element linked list", "\n",
-#     "Expect: E", "\n", 
-#     "Actual:", new_head.print_ll())
-
